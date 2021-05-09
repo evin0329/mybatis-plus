@@ -162,6 +162,7 @@ public class MybatisPlusAutoConfiguration implements InitializingBean {
         if (StringUtils.hasText(this.properties.getConfigLocation())) {
             factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfigLocation()));
         }
+        // todo 这个地方有问题
         applyConfiguration(factory);
         if (this.properties.getConfigurationProperties() != null) {
             factory.setConfigurationProperties(this.properties.getConfigurationProperties());
@@ -225,6 +226,15 @@ public class MybatisPlusAutoConfiguration implements InitializingBean {
         if (this.applicationContext.getBeanNamesForType(clazz, false, false).length > 0) {
             consumer.accept(this.applicationContext.getBean(clazz));
         }
+//        else {
+//            try {
+//                consumer.accept(clazz.newInstance());
+//            } catch (InstantiationException e) {
+//                e.printStackTrace();
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     // TODO 入参使用 MybatisSqlSessionFactoryBean

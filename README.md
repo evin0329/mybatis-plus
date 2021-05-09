@@ -22,7 +22,7 @@
   </a>
 </p>
 
-## What is MyBatis-Plus?
+## What is MyBatis-Plus1?
 
 MyBatis-Plus is an powerful enhanced toolkit of MyBatis for simplify development. This toolkit provides some efficient, useful, out-of-the-box features for MyBatis, use it can effectively save your development time.
 

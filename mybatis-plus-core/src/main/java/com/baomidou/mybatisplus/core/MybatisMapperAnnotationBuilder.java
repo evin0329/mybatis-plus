@@ -97,6 +97,7 @@ public class MybatisMapperAnnotationBuilder extends MapperAnnotationBuilder {
     public void parse() {
         String resource = type.toString();
         if (!configuration.isResourceLoaded(resource)) {
+            // copy supper
             loadXmlResource();
             configuration.addLoadedResource(resource);
             final String typeName = type.getName();
