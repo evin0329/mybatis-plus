@@ -162,6 +162,7 @@ public class MybatisPlusAutoConfiguration implements InitializingBean {
         if (StringUtils.hasText(this.properties.getConfigLocation())) {
             factory.setConfigLocation(this.resourceLoader.getResource(this.properties.getConfigLocation()));
         }
+        // todo 这个地方有问题
         applyConfiguration(factory);
         if (this.properties.getConfigurationProperties() != null) {
             factory.setConfigurationProperties(this.properties.getConfigurationProperties());

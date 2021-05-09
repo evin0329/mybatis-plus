@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.injector.methods.InsertBatchSomeColumn
 import com.baomidou.mybatisplus.extension.injector.methods.LogicDeleteByIdWithFill;
 import com.baomidou.samples.injector.methods.DeleteAll;
 import com.baomidou.samples.injector.methods.FindOne;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
  *
  * @author nieqiurong 2018/8/11 20:23.
  */
+@Component
 public class MySqlInjector extends DefaultSqlInjector {
 
     public MySqlInjector() {
