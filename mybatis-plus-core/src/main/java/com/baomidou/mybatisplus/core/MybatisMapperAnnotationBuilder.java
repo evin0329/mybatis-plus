@@ -97,12 +97,14 @@ public class MybatisMapperAnnotationBuilder extends MapperAnnotationBuilder {
     public void parse() {
         String resource = type.toString();
         if (!configuration.isResourceLoaded(resource)) {
+            // copy supper
             loadXmlResource();
             configuration.addLoadedResource(resource);
             final String typeName = type.getName();
             assistant.setCurrentNamespace(typeName);
             parseCache();
             parseCacheRef();
+            // newlyAdded
             SqlParserHelper.initSqlParserInfoCache(type);
             Method[] methods = type.getMethods();
             for (Method method : methods) {
@@ -110,6 +112,7 @@ public class MybatisMapperAnnotationBuilder extends MapperAnnotationBuilder {
                     // issue #237
                     if (!method.isBridge()) {
                         parseStatement(method);
+                        // newlyAdded
                         SqlParserHelper.initSqlParserInfoCache(typeName, method);
                     }
                 } catch (IncompleteElementException e) {

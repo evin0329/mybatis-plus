@@ -30,6 +30,10 @@ import static java.util.stream.Collectors.toList;
  */
 public class DefaultSqlInjector extends AbstractSqlInjector {
 
+    public DefaultSqlInjector() {
+        System.out.println("init DefaultSqlInjector");
+    }
+
     @Override
     public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
         return Stream.of(

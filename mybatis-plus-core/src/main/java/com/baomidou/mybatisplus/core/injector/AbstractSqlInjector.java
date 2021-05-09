@@ -43,11 +43,13 @@ public abstract class AbstractSqlInjector implements ISqlInjector {
 
     @Override
     public void inspectInject(MapperBuilderAssistant builderAssistant, Class<?> mapperClass) {
+        // 数据库实体类
         Class<?> modelClass = extractModelClass(mapperClass);
         if (modelClass != null) {
             String className = mapperClass.toString();
             Set<String> mapperRegistryCache = GlobalConfigUtils.getMapperRegistryCache(builderAssistant.getConfiguration());
             if (!mapperRegistryCache.contains(className)) {
+                // 获取方法列表
                 List<AbstractMethod> methodList = this.getMethodList(mapperClass);
                 if (CollectionUtils.isNotEmpty(methodList)) {
                     TableInfo tableInfo = TableInfoHelper.initTableInfo(builderAssistant, modelClass);

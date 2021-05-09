@@ -225,6 +225,15 @@ public class MybatisPlusAutoConfiguration implements InitializingBean {
         if (this.applicationContext.getBeanNamesForType(clazz, false, false).length > 0) {
             consumer.accept(this.applicationContext.getBean(clazz));
         }
+//        else {
+//            try {
+//                consumer.accept(clazz.newInstance());
+//            } catch (InstantiationException e) {
+//                e.printStackTrace();
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     // TODO 入参使用 MybatisSqlSessionFactoryBean
