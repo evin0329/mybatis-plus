@@ -1,14 +1,17 @@
 package com.baomidou.samples.injector.base;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.conditions.update.UpdateChainWrapper;
+import com.baomidou.samples.injector.methods.UpdateBatch;
 import org.apache.ibatis.annotations.Param;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -53,4 +56,6 @@ public interface MyBaseMapper<T> extends BaseMapper<T> {
     T findOne(Serializable id);
 
     int deleteAll();
+
+    int updateBatch(@Param("list")Collection<T> entityList, @Param(Constants.WRAPPER) Wrapper<T> updateWrapper);
 }

@@ -66,6 +66,7 @@ public abstract class AbstractWrapper<T, R, Children extends AbstractWrapper<T, 
      * 数据库表映射实体类
      */
     protected T entity;
+
     protected MergeSegments expression;
     /**
      * 实体类型

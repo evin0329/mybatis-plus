@@ -14,12 +14,7 @@ public class Student {
 
     private Long id;
 
-    private String name;
+    private String uName;
 
-    private Integer age;
-
-    public Student(String name, Integer age) {
-        this.name = name;
-        this.age = age;
-    }
+    private Integer uAge;
 }

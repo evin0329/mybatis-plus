@@ -95,15 +95,18 @@ public abstract class AbstractMethod implements Constants {
      * @return sql
      */
     protected String sqlSet(boolean logic, boolean ew, TableInfo table, boolean judgeAliasNull, String alias, String prefix) {
+        // 数据库表实体类的的SetSql
         String sqlScript = table.getAllSqlSet(logic, prefix);
         if (judgeAliasNull) {
             sqlScript = SqlScriptUtils.convertIf(sqlScript, String.format("%s != null", alias), true);
         }
         if (ew) {
+            // wrapper的SetSql
             sqlScript += NEWLINE;
             sqlScript += SqlScriptUtils.convertIf(SqlScriptUtils.unSafeParam(U_WRAPPER_SQL_SET),
                 String.format("%s != null and %s != null", WRAPPER, U_WRAPPER_SQL_SET), false);
         }
+        // 补上Set标签
         sqlScript = SqlScriptUtils.convertSet(sqlScript);
         return sqlScript;
     }
@@ -209,16 +212,28 @@ public abstract class AbstractMethod implements Constants {
             sqlScript = SqlScriptUtils.convertWhere(sqlScript);
             return newLine ? NEWLINE + sqlScript : sqlScript;
         } else {
+            // 所有字段if标签脚本
             String sqlScript = table.getAllSqlWhere(false, true, WRAPPER_ENTITY_DOT);
+
+            // 添加wrapper.entity if(not null)标签
             sqlScript = SqlScriptUtils.convertIf(sqlScript, String.format("%s != null", WRAPPER_ENTITY), true);
             sqlScript += NEWLINE;
-            sqlScript += SqlScriptUtils.convertIf(String.format(SqlScriptUtils.convertIf(" AND", String.format("%s and %s", WRAPPER_NONEMPTYOFENTITY, WRAPPER_NONEMPTYOFNORMAL), false) + " ${%s}", WRAPPER_SQLSEGMENT),
-                String.format("%s != null and %s != '' and %s", WRAPPER_SQLSEGMENT, WRAPPER_SQLSEGMENT,
-                    WRAPPER_NONEMPTYOFWHERE), true);
+
+            // 自定义sql标签脚本
+            sqlScript += SqlScriptUtils.convertIf(
+                    String.format(
+                        SqlScriptUtils.convertIf(" AND", String.format("%s and %s", WRAPPER_NONEMPTYOFENTITY, WRAPPER_NONEMPTYOFNORMAL), false) + " ${%s}",
+                        WRAPPER_SQLSEGMENT
+                    ),
+                    String.format("%s != null and %s != '' and %s", WRAPPER_SQLSEGMENT, WRAPPER_SQLSEGMENT, WRAPPER_NONEMPTYOFWHERE),
+                true);
+            // 添加where标签
             sqlScript = SqlScriptUtils.convertWhere(sqlScript) + NEWLINE;
             sqlScript += SqlScriptUtils.convertIf(String.format(" ${%s}", WRAPPER_SQLSEGMENT),
                 String.format("%s != null and %s != '' and %s", WRAPPER_SQLSEGMENT, WRAPPER_SQLSEGMENT,
                     WRAPPER_EMPTYOFWHERE), true);
+
+            // 添加wrapper if(not null)标签
             sqlScript = SqlScriptUtils.convertIf(sqlScript, String.format("%s != null", WRAPPER), true);
             return newLine ? NEWLINE + sqlScript : sqlScript;
         }
@@ -332,8 +347,8 @@ public abstract class AbstractMethod implements Constants {
      * 获取自定义方法名，未设置采用默认方法名
      * https://gitee.com/baomidou/mybatis-plus/pulls/88
      *
-     * @author 义陆无忧
      * @return method
+     * @author 义陆无忧
      */
     public String getMethod(SqlMethod sqlMethod) {
         return sqlMethod.getMethod();
